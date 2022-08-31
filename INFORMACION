@@ -1,0 +1,12 @@
+Requerimientos Cumplidos:
+1.- Maqueta  -> 80%
+2.- Funcionabilidad  ->80%
+  - Se pueda cambiar de vista -> Completo
+  - Se pueda grabar  -> Completo
+  - regrabar -> Completo
+  - detener -> Comepleto
+  - se detenga de forma automatica a los 2 minutos de grabacion -> Completo
+  - logica del boton terminar -> No se le logro agregar ninguna funcionalidad 
+  - reproducir video en la vista lista -> 50%
+3.- Configurable    -> cumple con agregar mas preguntas
+  - Tener una estructura facil de modificar y se pueda extender a mas de las 4 preguntas que se solicito.
