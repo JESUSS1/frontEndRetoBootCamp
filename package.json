@@ -10,11 +10,14 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.0",
+    "bootstrap-icons": "^1.9.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-media-recorder": "^1.6.6",
-    "react-record-webcam": "0.0.14"
+    "react-record-webcam": "0.0.14",
+    "uuid": "^8.3.2",
+    "uuid4": "^2.0.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

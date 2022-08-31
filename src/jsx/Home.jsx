@@ -1,6 +1,7 @@
 import React,{useContext } from 'react';
 import {GlobalContext} from '../context/GlobalContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import ModalGestionar from '../componentes/ModalGestionar';
 import ModalVideo from '../componentes/ModalVideo';
 

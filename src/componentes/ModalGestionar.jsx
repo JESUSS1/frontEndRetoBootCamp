@@ -12,7 +12,9 @@ const ModalGestionar = () => {
           <Modal.Header closeButton>
             <Modal.Title>Gestionar Preguntas</Modal.Title>
           </Modal.Header>
-          <Modal.Body><Gestionar/></Modal.Body>
+          <Modal.Body>
+            <Gestionar/>
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={_handleCloseGestionar}>Close</Button>
           </Modal.Footer>

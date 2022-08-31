@@ -20,6 +20,7 @@ export function GlobalContextProvider(props) {
   const _handleSetPreguntasIniciales = (data) =>{setPreguntas(data);}
 
   const _handleAddPregunta = (pregunta) =>{setPreguntas([...preguntas,pregunta]);}
+  const _handleDeletePregunta = (idP) =>{setPreguntas(preguntas.filter(pre => pre.id!==idP)  );}
 
   useEffect(()=>{
     _handleSetPreguntasIniciales(data);
@@ -34,7 +35,8 @@ export function GlobalContextProvider(props) {
           _handleShowGestionar,
           showVideo,
           _handleCloseVideo,
-          _handleShowVideo
+          _handleShowVideo,
+          _handleDeletePregunta
       }} >
           {props.children}
       </GlobalContext.Provider>

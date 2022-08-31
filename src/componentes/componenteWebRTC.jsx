@@ -1,13 +1,20 @@
 import '../css/componente.css';
-import React,{useEffect, useRef}  from 'react';
+import React,{useEffect, useRef,useState}  from 'react';
 import {useRecordWebcam,CAMERA_STATUS} from "react-record-webcam";
+import Timer from './Timer';
+
+const tiempoMax = 120;//segundos = 2min
+const tiempoMaxFormato = "00:02:00";
 
 const OPTIONS = {
   filename: "test-filename",
-  fileType: "mp4"
+  fileType: "mp4",
+  recordingLength:tiempoMax  //establecemos el tiempo maximo de grabacion
 };
 
 export const Elemento1 =({pregunta})=>{
+  const [visibleContador, setVisibleContador] = useState("none");
+  const _handleSetVisibleContador = (newEstado) => {setVisibleContador(newEstado)};
 
   const recordWebcam = useRecordWebcam(OPTIONS);
   
@@ -17,65 +24,73 @@ export const Elemento1 =({pregunta})=>{
   };
 
   useEffect(()=>{
-    console.log(recordWebcam.status);
+    if(recordWebcam.status==CAMERA_STATUS.RECORDING){
+      console.log(recordWebcam.status);
+      _handleSetVisibleContador("block");
+    }else{
+      _handleSetVisibleContador("none");
+      console.log(recordWebcam.status);
+    }
   })
 
   const RecordView = () =>{
     return(<>
-           <div>
-        <button
-          disabled={
-            recordWebcam.status === CAMERA_STATUS.OPEN ||
-            recordWebcam.status === CAMERA_STATUS.RECORDING ||
+        <div className='row g-3 d-flex justify-content-center'>
+        
+        <button className='col-auto'
+          disabled={ recordWebcam.status === CAMERA_STATUS.OPEN || recordWebcam.status === CAMERA_STATUS.RECORDING ||
             recordWebcam.status === CAMERA_STATUS.PREVIEW
           }
-          onClick={recordWebcam.open}
+          onClick={recordWebcam.open} aria-label="Activar Camara"
         >
-          Open camera
+          <i className="bi bi-camera-video-fill"></i>
         </button>
-        <button
-          disabled={
-            recordWebcam.status === CAMERA_STATUS.CLOSED ||
+        <button className='col-auto'
+          disabled={recordWebcam.status === CAMERA_STATUS.CLOSED || recordWebcam.status === CAMERA_STATUS.RECORDING ||
             recordWebcam.status === CAMERA_STATUS.PREVIEW
           }
-          onClick={recordWebcam.close}
+          onClick={recordWebcam.close} aria-label="Detener Camara"
         >
-          Close camera
+          <i className="bi bi-camera-video-off-fill"></i>
         </button>
-        <button
-          disabled={
-            recordWebcam.status === CAMERA_STATUS.CLOSED ||
-            recordWebcam.status === CAMERA_STATUS.RECORDING ||
+        <button className='col-auto'
+          disabled={recordWebcam.status === CAMERA_STATUS.CLOSED || recordWebcam.status === CAMERA_STATUS.RECORDING ||
             recordWebcam.status === CAMERA_STATUS.PREVIEW
           }
-          onClick={recordWebcam.start}
+          onClick={recordWebcam.start} aria-label="Grabar"
         >
-          Start recording
+          <i className="bi bi-play-circle-fill"></i>
         </button>
-        <button
-          disabled={recordWebcam.status !== CAMERA_STATUS.RECORDING}
-          onClick={recordWebcam.stop}
+        <button className='col-auto' disabled={recordWebcam.status !== CAMERA_STATUS.RECORDING}
+                onClick={recordWebcam.stop} aria-label="Detener Grabacion"
         >
-          Stop recording
+           <i className="bi bi-stop-circle-fill"></i>
         </button>
-        <button
+        <button className='col-auto'
           disabled={recordWebcam.status !== CAMERA_STATUS.PREVIEW}
-          onClick={recordWebcam.retake}
+          onClick={recordWebcam.retake} aria-label="Retake Reiniciar Grabacion"
         >
-          Retake
+          <i className="bi bi-arrow-clockwise"></i>
         </button>
-        <button
+        <button className='col-auto'
           disabled={recordWebcam.status !== CAMERA_STATUS.PREVIEW}
-          onClick={recordWebcam.download}
+          onClick={recordWebcam.download} aria-label="Download"
         >
-          Download
+          <i className="bi bi-cloud-arrow-down-fill"></i>
         </button>
-        <button
+          {
+            /**
+             *         <button className='col-auto'
           disabled={recordWebcam.status !== CAMERA_STATUS.PREVIEW}
           onClick={getRecordingFileHooks}
         >
           Get recording
         </button>
+             */
+          }
+
+        <Timer tiempoMaxFormato={tiempoMaxFormato} tiempoMax={tiempoMax} visible={visibleContador} stopVideo={recordWebcam.stop} />
+      
       </div>
     </>)
   }
@@ -84,8 +99,7 @@ export const Elemento1 =({pregunta})=>{
   return(
     <div className="contenedor-webRTC">
       <div className="div-video" >
-      <p style={{color:'red'}}>Camera status: {recordWebcam.status}</p>
-
+      <h6 style={{color:'red'}}>Estados de Camara: {recordWebcam.status}</h6>
       <RecordView/>
       <video
         ref={recordWebcam.webcamRef}
@@ -113,13 +127,12 @@ export const Elemento1 =({pregunta})=>{
         }}
         controls
       />
+
       </div>
     
       <div className="div-pregunta" >
-        <h3 className='pregunta'>{pregunta.pregunta}</h3>
+        <h4 style={{textAlign : "center"}} className='pregunta'>{pregunta.pregunta}</h4>
       </div>
-
-
     </div>
   )
 }

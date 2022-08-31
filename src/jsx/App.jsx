@@ -4,7 +4,7 @@ import {useState,useContext} from 'react';
 import {GlobalContext} from '../context/GlobalContext';
 import {Elemento1} from '../componentes/componenteWebRTC';
 
-function App({idPregunta}) {
+function App({position}) {
 
   const {preguntas} = useContext(GlobalContext);
 
@@ -12,7 +12,7 @@ function App({idPregunta}) {
     <div >
       {
         preguntas.map((pregunta,index)=>{
-          if(pregunta.id === idPregunta){
+          if(index == position){
             return <Elemento1 key={index} pregunta={pregunta} />
           }
         })

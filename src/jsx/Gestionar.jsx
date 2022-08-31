@@ -1,16 +1,17 @@
 import {GlobalContext} from '../context/GlobalContext';
 import {useState,useContext,useRef} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 //console.log(data)
 function Gestionar() {
-  const {preguntas,_handleAddPregunta} = useContext(GlobalContext);
+  const {preguntas,_handleAddPregunta,_handleDeletePregunta} = useContext(GlobalContext);
   const ref_input = useRef();
 
   const _handleFormPregunta = () =>{
    
     if(ref_input.current.value!=""){
       _handleAddPregunta({
-        id:preguntas.length,
+        id:uuidv4(),
         pregunta:ref_input.current.value,
         srcVideo : '',
         estadoRespuesta:false
